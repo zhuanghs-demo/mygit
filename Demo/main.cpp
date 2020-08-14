@@ -1,6 +1,7 @@
 #include "demofactory.h"
 #include <QApplication>
 #include <QTextCodec>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +11,10 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
 
     QApplication a(argc, argv);
-    DemoFactory::instance().createDemoCase(5)->show();
-
+    Demo *pDemo = DemoFactory::instance().createDemoCase(5);
+    if(!pDemo){
+        return -1;
+    }
+    pDemo->show();
     return a.exec();
 }

@@ -14,6 +14,9 @@ Demo::Demo(QWidget *parent) :
 Demo::~Demo()
 {
     delete ui;
+    sInput1.clear();
+    sInput2.clear();
+    sOutput.clear();
 }
 
 void Demo::setInput1Str(const QString& sInput)

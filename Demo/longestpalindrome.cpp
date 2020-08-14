@@ -1,5 +1,4 @@
 #include "longestpalindrome.h"
-#include "ui_longestpalindrome.h"
 
 longestPalindrome::longestPalindrome(Demo *parent):
     Demo(parent)

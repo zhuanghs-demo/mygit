@@ -17,13 +17,11 @@ SOURCES += main.cpp\
         longestpalindrome.cpp \
     demo.cpp \
     demofactory.cpp \
-    caselibrary.cpp \
     findmediansortedarrays.cpp
 
 HEADERS  += longestpalindrome.h \
     demo.h \
     demofactory.h \
-    caselibrary.h \
     findmediansortedarrays.h
 
 FORMS    += \
