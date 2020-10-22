@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QTextCodec>
 #include <QDebug>
+#include <QDomDocument>
 
 int main(int argc, char *argv[])
 {
@@ -10,8 +11,12 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(QTextCodec::codecForLocale());
     QTextCodec::setCodecForCStrings(QTextCodec::codecForLocale());
 
+    
     QApplication a(argc, argv);
-    Demo *pDemo = DemoFactory::instance().createDemoCase(5);
+    Demo *pDemo = DemoFactory::instance().createDemoBase();
+//    int nProblemNo = pDemo->getProblemCurrentNo();
+//    qDebug() << nProblemNo;
+
     if(!pDemo){
         return -1;
     }

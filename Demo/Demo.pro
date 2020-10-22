@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,12 +17,13 @@ SOURCES += main.cpp\
         longestpalindrome.cpp \
     demo.cpp \
     demofactory.cpp \
-    findmediansortedarrays.cpp
+    findmediansortedarrays.cpp \
 
 HEADERS  += longestpalindrome.h \
     demo.h \
     demofactory.h \
-    findmediansortedarrays.h
+    findmediansortedarrays.h \
+    problemtypeno.h
 
 FORMS    += \
     demo.ui

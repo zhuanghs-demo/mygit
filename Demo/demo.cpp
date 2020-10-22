@@ -1,5 +1,7 @@
 #include "demo.h"
 #include "ui_demo.h"
+#include "findmediansortedarrays.h"
+#include "longestpalindrome.h"
 
 Demo::Demo(QWidget *parent) :
     QWidget(parent),
@@ -7,12 +9,42 @@ Demo::Demo(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(tr("测试界面"));
+    initVar();
+    initUi();
+    initConnetion();
+}
+
+void Demo::initUi()
+{
+    ui->lineEdit_Output->setReadOnly(true);
+    ui->lineEdit_TimeSpend->setReadOnly(true);
+    ui->textBrowser_ProblemDesc->setReadOnly(true);
+}
+
+void Demo::initVar()
+{
+    dtAlgoEnd = dtAlgoStart = QDateTime::currentDateTime();
+}
+
+void Demo::initConnetion()
+{
+    connect(ui->comboBox_ProblemNo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotIndexChange(int)));
     connect(ui->pushButton_OK, SIGNAL(pressed()), this, SLOT(slotBtnOkPressed()));
     connect(ui->pushButton_Cancel, SIGNAL(pressed()), this, SLOT(slotBtnCancelPressed()));
 }
 
+void Demo::setProblemGroupBoxData(const QMap<int, QString> &mapProblem)
+{
+    QMap<int, QString>::const_iterator iter = mapProblem.begin();
+    int nIndex = 0;
+    for(; iter != mapProblem.end(); ++iter,++nIndex){
+        ui->comboBox_ProblemNo->insertItem(nIndex, iter.value(), iter.key());
+    }
+}
+
 Demo::~Demo()
 {
+    ui->comboBox_ProblemNo->clear();
     delete ui;
     sInput1.clear();
     sInput2.clear();
@@ -53,9 +85,84 @@ QString Demo::getOutputStr()
     return this->sOutput;
 }
 
+void Demo::setAlgoStart()
+{
+    dtAlgoStart = QDateTime::currentDateTime();
+    dtAlgoEnd = QDateTime::currentDateTime();
+}
+
+void Demo::setAlgoEnd()
+{
+    dtAlgoEnd = QDateTime::currentDateTime();
+    //qDebug() << dtAlgoEnd.toMSecsSinceEpoch() << dtAlgoStart.toMSecsSinceEpoch();
+    qint64 nTimeSpend = dtAlgoEnd.toMSecsSinceEpoch() - dtAlgoStart.toMSecsSinceEpoch();
+    ui->lineEdit_TimeSpend->setText(QString::number(nTimeSpend));
+}
+
+void Demo::setProblemGroupBoxIndex(const int nIndex)
+{
+    ui->comboBox_ProblemNo->setCurrentIndex(nIndex);
+}
+
+int Demo::getProblemCurrentNo()
+{
+    return ui->comboBox_ProblemNo->currentIndex();
+}
+
+void Demo::setDesc(const int nIndex)
+{
+    switch (nIndex) {
+        case ENUM_DEMO_4th:{
+            findMedianSortedArrays Algo4;
+            Algo4.setProblemDesc(this);
+         }
+            break;
+         case ENUM_DEMO_5th:{
+            longestPalindrome Algo5;
+            Algo5.setProblemDesc(this);
+          }
+            break;
+        default :
+            break;
+    }
+}
+
+void Demo::calcResult(const int nProblemNo)
+{
+    switch (nProblemNo) {
+        case ENUM_DEMO_4th:{
+            findMedianSortedArrays Algo4;
+            Algo4.setProblemDesc(this);
+            Algo4.calcResult(this);
+         }
+            break;
+         case ENUM_DEMO_5th:{
+            longestPalindrome Algo5;
+            Algo5.setProblemDesc(this);
+            Algo5.calcResult(this);
+          }
+            break;
+        default :
+            break;
+    }
+}
+
+void Demo::setProblemDesc(const QString &strDesc)
+{
+    ui->textBrowser_ProblemDesc->clear();
+    ui->textBrowser_ProblemDesc->setText(strDesc);
+}
+
+void Demo::slotIndexChange(int nIndex)
+{
+    setDesc(nIndex);
+    emit indexChange(nIndex);
+}
+
 void Demo::slotBtnOkPressed()
 {
-    calcResult();
+    int nProblemNo = ui->comboBox_ProblemNo->currentIndex();
+    calcResult(nProblemNo);
     this->update();
 }
 

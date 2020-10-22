@@ -17,12 +17,10 @@
                 输入: "cbbd"
                 输出: "bb"
  */
-
 #include "demo.h"
 
-class longestPalindrome : public Demo
+class longestPalindrome
 {
-    Q_OBJECT
 public:
     enum ENUM_DEMO_ALGOTYPE{
         ENUM_DEMO_ALGOTYPE_Dynamic,//动态规划
@@ -31,11 +29,12 @@ public:
     };
 
 public:
-    explicit longestPalindrome(Demo *parent = 0);
+    explicit longestPalindrome();
     ~longestPalindrome();
 
 public:
-    void calcResult();
+    void setProblemDesc(Demo* pDemo);
+    void calcResult(Demo *pDemo);
 
 public:
     QPair<int, int> expandAroundCenter(const QString &s,int nLeft, int nRight);

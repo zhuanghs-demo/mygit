@@ -1,7 +1,6 @@
 #include "findmediansortedarrays.h"
 
-findMedianSortedArrays::findMedianSortedArrays(Demo *parent):
-    Demo(parent)
+findMedianSortedArrays::findMedianSortedArrays()
 {
 
 }
@@ -11,21 +10,42 @@ findMedianSortedArrays::~findMedianSortedArrays()
 
 }
 
-void findMedianSortedArrays::calcResult()
+void findMedianSortedArrays::setProblemDesc(Demo *pDemo)
 {
+    if(!pDemo) return;
+    QString str = "给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。\n \
+            请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。\n \
+            你可以假设 nums1 和 nums2 不会同时为空。\n \
+            示例 1: \n \
+            nums1 = [1, 3] \n \
+            nums2 = [2] \n \
+            则中位数是 2.0 \n \
+            \n \
+            示例 2: \n \
+            nums1 = [1, 2] \n \
+            nums2 = [3, 4] \n \
+            则中位数是 (2 + 3)/2 = 2.5";
+     pDemo->setProblemDesc(str);
+}
+
+void findMedianSortedArrays::calcResult(Demo* pDemo)
+{
+    if(!pDemo) return;
     QVector<int> nums1, nums2;
     nums1.clear();
     nums2.clear();
-    QStringList listNums1 = getInput1Str().split(',');
+    QStringList listNums1 = pDemo->getInput1Str().split(',');
     for(const QString &strNum:listNums1){
         nums1.append(strNum.toInt());
     }
-    QStringList listNums2 = getInput2Str().split(',');
+    QStringList listNums2 = pDemo->getInput2Str().split(',');
     for(const QString &strNum:listNums2){
         nums2.append(strNum.toInt());
     }
+    pDemo->setAlgoStart();
     double dResult = findMedianSortedArraysUseDichotomy(nums1, nums2);
-    setOutputStr(QString::number(dResult));
+    pDemo->setAlgoEnd();
+    pDemo->setOutputStr(QString::number(dResult));
 }
 
 /**

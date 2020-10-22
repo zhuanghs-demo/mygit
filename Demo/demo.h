@@ -10,6 +10,11 @@
  */
 
 #include <QWidget>
+#include <QDateTime>
+#include <QDebug>
+
+#include "problemtypeno.h"
+using namespace problemspace;
 
 namespace Ui {
 class Demo;
@@ -24,17 +29,29 @@ public:
     virtual ~Demo();
 
 public:
-    virtual void calcResult(){}
-
-public:
+    void initUi();
+    void initVar();
+    void initConnetion();
+    void setProblemGroupBoxData(const QMap<int, QString> &mapProblem);
     void setInput1Str(const QString& sInput);
     void setInput2Str(const QString& sInput);
     void setOutputStr(const QString& sOutput);
     QString getInput1Str();
     QString getInput2Str();
     QString getOutputStr();
+    void setAlgoStart();
+    void setAlgoEnd();
+    void setProblemGroupBoxIndex(const int nIndex);
+    int getProblemCurrentNo();
+    void setDesc(const int nIndex);
+    void calcResult(const int nProblemNo);
+    void setProblemDesc(const QString& strDesc);
+
+signals:
+    void indexChange(int nIndex);
 
 protected slots:
+    void slotIndexChange(int nIndex);
     void slotBtnOkPressed();
     void slotBtnCancelPressed();
 
@@ -45,6 +62,8 @@ private:
     QString sInput1;
     QString sInput2;
     QString sOutput;
+    QDateTime dtAlgoStart;
+    QDateTime dtAlgoEnd;
 };
 
 #endif // DEMO_H

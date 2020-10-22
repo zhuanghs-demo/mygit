@@ -20,18 +20,17 @@
                 nums2 = [3, 4]
                 则中位数是 (2 + 3)/2 = 2.5
  */
-
 #include "demo.h"
 
-class findMedianSortedArrays:public Demo
+class findMedianSortedArrays
 {
-    Q_OBJECT
 public:
-    explicit findMedianSortedArrays(Demo *parent = 0);
+    explicit findMedianSortedArrays();
     ~findMedianSortedArrays();
 
 public:
-    void calcResult();
+    void setProblemDesc(Demo* pDemo);
+    void calcResult(Demo* pDemo);
     double findMedianSortedArraysUseDichotomy(QVector<int>& nums1, QVector<int>& nums2);
 };
 

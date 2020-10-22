@@ -1,7 +1,6 @@
 #include "longestpalindrome.h"
 
-longestPalindrome::longestPalindrome(Demo *parent):
-    Demo(parent)
+longestPalindrome::longestPalindrome()
 {
 
 }
@@ -11,11 +10,29 @@ longestPalindrome::~longestPalindrome()
 
 }
 
-void longestPalindrome::calcResult()
+void longestPalindrome::setProblemDesc(Demo *pDemo)
 {
-    QString strInput = getInput1Str();
-    QString strOutput = findLongestPalindromeInOriginalString(strInput, ENUM_DEMO_ALGOTYPE_Manacher);
-    setOutputStr(strOutput);
+    if(!pDemo) return;
+    QString str = "给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。\n \
+            示例 1： \n \
+            输入: \"babad\" \n \
+            输出: \"bab\" \n \
+            注意: \"aba\" 也是一个有效答案。 \n \
+            \n \
+            示例 2： \n \
+            输入: \"cbbd\" \n \
+            输出: \"bb\"";
+     pDemo->setProblemDesc(str);
+}
+
+void longestPalindrome::calcResult(Demo *pDemo)
+{
+    if(!pDemo) return;
+    QString strInput = pDemo->getInput1Str();
+    pDemo->setAlgoStart();
+    QString strOutput = findLongestPalindromeInOriginalString(strInput, ENUM_DEMO_ALGOTYPE_Dynamic);
+    pDemo->setAlgoEnd();
+    pDemo->setOutputStr(strOutput);
 }
 
 /**
